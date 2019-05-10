@@ -47,23 +47,23 @@ architectures (like mobile or consoles) are in general more limited.
 The most common memory model is the heap, where an application will
 request a region of memory, and the underlying OS will try to fit it
 somewhere and return it. This often works best and is flexible,
-but over time and with abuse, this can lead to segmentation.
+but over time and with abuse, this can lead to fragmentation.
 
-Segmentation slowly creates holes that are too small for most common
+Fragmentation slowly creates holes that are too small for most common
 allocations, so that memory is wasted. There is a lot of literature
-about heap and segmentation, so this topic will not be developed
+about heap and fragmentation, so this topic will not be developed
 further here. Modern operating systems use paged memory, which helps
-mitigate the problem of segmentation but doesn't solve it.
+mitigate the problem of fragmentation but doesn't solve it.
 
 However, in many studies and tests, it is shown that given enough
 memory, if the maximum allocation size is below a given threshold in
 proportion to the maximum heap size and proportion of memory intended to
-be unused, segmentation will not be a problem over time as it will
+be unused, fragmentation will not be a problem over time as it will
 remain constant. In other words, leave 10-20% of your memory free
 and perform all small allocations and you are fine.
 
 Godot ensures that all objects that can be allocated dynamically are
-small (less than a few kb at most). But what happens if an allocation is
+small (at most a few kB). But what happens if an allocation is
 too large (like an image or mesh geometry or large array)? In this case
 Godot has the option to use a dynamic memory pool. This memory needs to
 be locked to be accessed, and if an allocation runs out of memory, the
